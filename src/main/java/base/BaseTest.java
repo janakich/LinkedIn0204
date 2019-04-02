@@ -2,10 +2,12 @@ package base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utils.Constants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by venkata on 02/04/2019.
@@ -31,9 +33,11 @@ public class BaseTest {
             driver = new ChromeDriver();
         }
         else {System.out.println("No  browser ");}
-
-
-
+        driver.manage().window().fullscreen();
+        driver.manage().timeouts().implicitlyWait(Constants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(Constants.IMPLICITLY_WAIT,TimeUnit.SECONDS);
+        String url= prop.getProperty("url")
+        driver.get(url);
 
     }
 
