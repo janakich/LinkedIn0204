@@ -10,21 +10,21 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class LoginPage extends BaseTest{
 
-    @FindBy(id= "login-email") private WebElement userName;
-    @FindBy(id= "login-password") private WebElement password;
-    @FindBy(id= "login-submit") private WebElement submitButton;
+    @FindBy(id= "username") private WebElement userName;
+    @FindBy(id= "password") private WebElement password;
+    @FindBy(css= "button[class='btn__primary--large from__button--floating']") private WebElement submitButton;
 
     public LoginPage(){
         PageFactory.initElements(driver,this);
     }
-    public String getTitle(){
 
+    public String getTitle(){
         return driver.getTitle();
     }
 
     public void dologin(){
-        userName.sendKeys(prop.getProperty("userName"));
-        userName.sendKeys(prop.getProperty("password"));
+        userName.sendKeys(prop.getProperty("username"));
+        password.sendKeys(prop.getProperty("password"));
         submitButton.click();
         
     }
