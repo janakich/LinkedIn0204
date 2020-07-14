@@ -1,9 +1,10 @@
 package base;
 
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import utils.Constants;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
@@ -14,8 +15,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class BaseTest {
 
-    public static WebDriver driver;
-    public static Properties prop;
+    protected static WebDriver driver;
+    protected static Properties prop;
 
     public BaseTest(){
 
@@ -27,18 +28,22 @@ public class BaseTest {
                 e.printStackTrace();
         }
     }
-    public static void initBrowser(){
+
+    protected static void initBrowser(){
         String browser = prop.getProperty("browser");
         if (browser.equals("chrome")){
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            System.setProperty("webdriver.chrome.driver", prop.getProperty("webdriver.chrome.driver"));
             driver = new ChromeDriver();
         }
         else {System.out.println("No  browser ");}
         driver.manage().window().fullscreen();
         driver.manage().timeouts().implicitlyWait(Constants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(Constants.IMPLICITLY_WAIT,TimeUnit.SECONDS);
-        String url= prop.getProperty("url")
+        String url= prop.getProperty("ApplicationUrlUK");
         driver.get(url);
-
     }
+
 
 }
